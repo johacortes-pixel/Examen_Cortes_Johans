@@ -18,6 +18,11 @@ cartelera = {
     
 }
 
+
+
+
+
+
 def buscar_codigo(codigo):
     for i in peliculas, cartelera:
         if (codigo.lower()) == (peliculas[i].lower()) and codigo == (cartelera[i].lower()):
@@ -26,45 +31,6 @@ def buscar_codigo(codigo):
         else:
             print("Codigo no encontrado")
             buscar_codigo() == False
-def leer_opcion():
-    
-    print("========== MENÚ PRINCIPAL ==========")
-    print("1. Cupos por género")
-    print("2. Búsqueda de películas por rango de precio")
-    print("3. Actualizar precio de película")
-    print("4. Agregar película")
-    print("5. Eliminar película")
-    print("6. Salir")
-    print("=====================================")
-    try:
-        opcion = int(input("Ingrese una opcion : "))
-    except ValueError:
-        print("Se esperaba un numero, intente de nuevo")
-    
-    if opcion >= 1 and opcion <= 6:
-        match(opcion):
-            
-            case(1):
-                cupos_genero()
-                
-            case(2):
-                busqueda_precio()
-                
-            case(3):
-                actualizar_precio()
-
-            case(4):
-                agregar_pelicula()
-                
-            case(5):
-                eliminar_pelicula()
-                
-            case(_):
-                print("Debe de ingresar una opcion valida (1-6)")
-
-
-
-
 
 def cupos_genero(genero):
     genero = " "
@@ -77,6 +43,7 @@ def cupos_genero(genero):
             print(f"La/s peliculas de este genero son : {peliculas[i][0][1]}")
 
 def actualizar_precio():
+    act_mas_precios = ""
     while act_mas_precios != "s":
         codigo = input("Ingrese el codigo a buscar: ")
         buscar_codigo(codigo)
@@ -167,3 +134,43 @@ def eliminar_pelicula(codigo):
         del peliculas[codigo]
     elif buscar_codigo(codigo) == False: 
         print("Codigo no encontrado")
+
+def leer_opcion():
+    
+    print("========== MENÚ PRINCIPAL ==========")
+    print("1. Cupos por género")
+    print("2. Búsqueda de películas por rango de precio")
+    print("3. Actualizar precio de película")
+    print("4. Agregar película")
+    print("5. Eliminar película")
+    print("6. Salir")
+    print("=====================================")
+    try:
+        opcion = int(input("Ingrese una opcion : "))
+    except ValueError:
+        print("Se esperaba un numero, intente de nuevo")
+    
+    if opcion >= 1 and opcion <= 6:
+        match(opcion):
+            
+            case(1):
+                cupos_genero(genero=any)
+                
+            case(2):
+                busqueda_precio(p_max=any,p_min=any)
+                
+            case(3):
+                actualizar_precio()
+
+            case(4):
+                agregar_pelicula()
+                
+            case(5):
+                eliminar_pelicula(codigo=any)
+            
+            case(6):
+                finalizar_programa()
+            case(_):
+                print("Debe de ingresar una opcion valida (1-6)")
+
+leer_opcion()
