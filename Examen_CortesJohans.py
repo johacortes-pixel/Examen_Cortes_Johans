@@ -46,58 +46,47 @@ def leer_opcion():
             
             case(1):
                 cupos_genero()
+                
+            case(2):
+                busqueda_precio()
+                
+            case(3):
+                actualizar_precio()
 
+            case(4):
+                agregar_pelicula()
+                
+            case(5):
+                eliminar_pelicula()
+                
+            case(_):
                 print("Debe de ingresar una opcion valida (1-6)")
 
 
 
-#El sistema solicita al usuario el nombre de un género (por ejemplo: drama, acción o
-#comedia). La búsqueda no distingue entre mayúsculas y minúsculas, por lo que
-#"drama" y "DRAMA" deben producir el mismo resultado. El sistema recorre el
-#diccionario películas identificando todas las películas que pertenezcan a ese género.
-#Por cada película encontrada, se debe buscar su código en el diccionario cartelera,
-#extraer la cantidad de cupos disponibles (el segundo elemento de la lista) y
-#acumularla en un total. Una vez procesadas todas las películas, se debe mostrar
-#dicho total acumulado en pantalla.
-#4
-#Para implementar esta opción:
-#Define una función llamada cupos_genero(genero). Recibe el género como
-#parámetro, no retorna ningún valor y muestra el resultado directamente por
-#pantalla
 
-#No debe contener solo
-#espacios en blanco ni
-#estar vacío
 
 def cupos_genero(genero):
     genero = " "
     while genero == " " or genero == None:
-        genero = input("Ingrese el genero que desea buscar (Drama, Accion, Docuental, Comedia, Thiller o Ciencia Ficcion)")
+        genero = input("Ingrese el genero que desea buscar (Drama, Accion, Docuental, Comedia, Thiller o Ciencia Ficcion): ")
         if genero == " " or genero == None:
-            print("La busqueda no puede estar vacia o contner solo espacios, intente de nuevo")
+            print("La busqueda no puede estar vacia o contner solo espacios, intente de nuevo: ")
     for i in peliculas:
         if genero.lower() == peliculas[i][1]:
-            print(peliculas[i])
-genero = " "
-while genero == " " or genero == None:
-    genero = input("Ingrese el genero que desea buscar (Drama, Accion, Docuental, Comedia, Thiller o Ciencia Ficcion)")
-    if genero == " " or genero == None:
-        print("La busqueda no puede estar vacia o contner solo espacios, intente de nuevo")
-for i in peliculas:
-    if genero.lower() == peliculas[i][1]:
-        print(peliculas[i])
+            print(f"La/s peliculas de este genero son : {peliculas[i][0][1]}")
 
-
-#código	No vacío ni solo espacios en blanco, y que no exista ya en los diccionarios
-#título	No vacío ni solo espacios en blanco
-#género	No vacío ni solo espacios en blanco
-#duración	Número entero mayor que cero
-#clasificación	Debe ser exactamente 'A', 'B' o 'C'
-#idioma	No vacío ni solo espacios en blanco
-#es_3d	El usuario ingresa 's' o 'n'. El sistema almacena True si es 's', False si es 'n'
-#precio	Número entero mayor que cero
-#cupos	Número entero mayor o igual a cero
-
+def actualizar_precio():
+    while act_mas_precios != "s":
+        codigo = input("Ingrese el codigo a buscar: ")
+        buscar_codigo(codigo)
+        if buscar_codigo(codigo) == True:
+            precio_actualizar = int(input("Ingrese el precio al que desea actualizar: "))
+            for i in cartelera():
+                if codigo == cartelera[i]:
+                    cartelera[i][0] = precio_actualizar
+        act_mas_precios = print("Desea actualizar mas precios? (s/n): ")
+        act_mas_precios == act_mas_precios.lower()
 
 def agregar_pelicula():
     codigo = " "
@@ -115,7 +104,7 @@ def agregar_pelicula():
             print("El texto no puede contener solo espacios o estar en blanco")
             
     while genero == " " or genero == None:
-        genero = input("Ingrese el genero de la pelicula")
+        genero = input("Ingrese el genero de la pelicula: ")
         genero_lower = genero.lower()
         if genero == " " or genero == None:
             print("El texto no puede contener solo espacios o estar en blanco")
@@ -126,28 +115,28 @@ def agregar_pelicula():
             print("Ingrese un numero mayor a 0: ")
     
     while clasificacion.title() != "A" or clasificacion.title() != "B" or clasificacion.title() != "C":
-        clasificacion = str(input("Ingrese la clasificacion de la pelicula"))
+        clasificacion = str(input("Ingrese la clasificacion de la pelicula: "))
         if clasificacion.title() != "A" or clasificacion.title() != "B" or clasificacion.title() != "C":
             print("Debe ingresar exclusivamente una de las tres opciones (A,B,C)")
     
     while idioma == " " or idioma == None:
-        idioma = input("Ingrese el idioma de la pelicula")
+        idioma = input("Ingrese el idioma de la pelicula: ")
         if idioma == " " or idioma == None:
             print("El texto no puede contener solo espacios o estar en blanco")
     
     while es_3d.lower() != "s" or es_3d.lower() != "n":
-        es_3d = input("Ingrese si es 3D (s/n)")
+        es_3d = input("Ingrese si es 3D (s/n): ")
         if es_3d.lower() == "s":
             es_3d = True
         elif es_3d.lower() == "n":
             es_3d = False
             
     while precio <= 0:
-        precio = input("Ingrese el precio de la pelicula")
+        precio = input("Ingrese el precio de la pelicula: ")
         if precio <= 0:
             print("Debe de ser un numero mayor o igual a 0")
     while cupos < 0:
-        cupos = int(input("Ingrese los cupos de la pelicula"))
+        cupos = int(input("Ingrese los cupos de la pelicula: "))
         if cupos < 0:
             print("Debe ingresar un numero mayor o igual a 0")
     
@@ -159,13 +148,15 @@ def finalizar_programa():
 
 def busqueda_precio(p_min,p_max):
     
-    p_min = int(input("Ingrese el valor minimo"))
-    p_max = int(input("Ingree el valor maximo"))
+    p_min = int(input("Ingrese el valor minimo: "))
+    p_max = int(input("Ingree el valor maximo: "))
 
     for i in cartelera:
-        if  cartelera[i][0] > p_min and cartelera[i][0] < p_max:
-            print(f"Las peliculas dentro de este rago son: {peliculas[i][0], cartelera[i]}")
-
+        if cartelera[i][1] > 0:
+            if  cartelera[i][0]  > p_min and cartelera[i][0] < p_max:
+                print(f"Las peliculas dentro de este rago son: {peliculas[i][0], cartelera[i]}")
+        else:
+            print("No hay peliculas en stock que cumplan el rango de precio.")
 
 def eliminar_pelicula(codigo):
     codigo = input("Ingrese el codigo que desea buscar: ")
